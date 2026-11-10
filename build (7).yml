@@ -1,0 +1,140 @@
+name: Build APK
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Build
+        run: |
+          set -e
+          rm -rf /tmp/src; mkdir -p /tmp/src
+          n=0
+          while IFS= read -r -d '' f; do
+            n=$((n+1))
+            if [ "$(head -c2 "$f")" = "PK" ]; then mkdir -p /tmp/src/z$n; unzip -oq "$f" -d /tmp/src/z$n || true; else cp "$f" /tmp/src/h$n.html; fi
+          done < <(find . \( -name '*.html' -o -name '*.zip' \) -not -path './node_modules/*' -print0)
+          H=$(grep -rl "registerPlugin('BtLink')" --include='*.html' /tmp/src 2>/dev/null | head -1 || true)
+          if [ -z "$H" ]; then H=$(find /tmp/src -name '*.html' -print0 | xargs -0 -r ls -S | head -1); fi
+          if [ -z "$H" ]; then echo "html not found"; exit 1; fi
+          echo "using: $H"
+          mkdir -p app/www
+          cp "$H" app/www/index.html
+          cd app
+          cat > package.json <<'E'
+          {"name":"mench","version":"1.0.0","private":true,"dependencies":{"@capacitor/android":"^6.1.0","@capacitor/cli":"^6.1.0","@capacitor/core":"^6.1.0"}}
+          E
+          cat > capacitor.config.json <<'E'
+          {"appId":"com.hasan.mench","appName":"منچ و مار و پله","webDir":"www"}
+          E
+          npm install
+          npx cap add android
+          D=android/app/src/main/java/com/hasan/mench
+          mkdir -p $D
+          cat > $D/BtLink.java <<'E'
+          package com.hasan.mench;
+          import android.Manifest;
+          import android.annotation.SuppressLint;
+          import android.bluetooth.*;
+          import android.content.pm.PackageManager;
+          import android.os.Build;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+          import com.getcapacitor.*;
+          import com.getcapacitor.annotation.CapacitorPlugin;
+          import java.io.*;
+          import java.util.*;
+          import java.util.concurrent.ConcurrentHashMap;
+
+          @SuppressLint("MissingPermission")
+          @CapacitorPlugin(name = "BtLink")
+          public class BtLink extends Plugin {
+            static final UUID U = UUID.fromString("8a6f1d3e-5b7c-4e2a-9c1d-0f3b6a7e2c11");
+            BluetoothAdapter ad = BluetoothAdapter.getDefaultAdapter();
+            Map<String, PrintWriter> w = new ConcurrentHashMap<>();
+            int n = 0;
+
+            boolean ok(PluginCall c) {
+              if (ad == null || !ad.isEnabled()) { c.reject("off"); return false; }
+              if (Build.VERSION.SDK_INT >= 31 && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN}, 77);
+                c.reject("perm"); return false;
+              }
+              return true;
+            }
+
+            String reg(final BluetoothSocket s) throws IOException {
+              final String id = "b" + (++n);
+              w.put(id, new PrintWriter(new OutputStreamWriter(s.getOutputStream(), "UTF-8")));
+              JSObject o = new JSObject(); o.put("id", id); notifyListeners("conn", o);
+              new Thread(() -> {
+                try {
+                  BufferedReader r = new BufferedReader(new InputStreamReader(s.getInputStream(), "UTF-8"));
+                  String l;
+                  while ((l = r.readLine()) != null) { JSObject d = new JSObject(); d.put("id", id); d.put("msg", l); notifyListeners("data", d); }
+                } catch (Exception e) {}
+              }).start();
+              return id;
+            }
+
+            @PluginMethod public void paired(PluginCall c) {
+              if (!ok(c)) return;
+              JSArray a = new JSArray();
+              for (BluetoothDevice d : ad.getBondedDevices()) { JSObject o = new JSObject(); o.put("name", d.getName()); o.put("addr", d.getAddress()); a.put(o); }
+              JSObject r = new JSObject(); r.put("list", a); c.resolve(r);
+            }
+
+            @PluginMethod public void listen(PluginCall c) {
+              if (!ok(c)) return;
+              new Thread(() -> {
+                try { BluetoothServerSocket ss = ad.listenUsingRfcommWithServiceRecord("mench", U); while (true) reg(ss.accept()); } catch (Exception e) {}
+              }).start();
+              c.resolve();
+            }
+
+            @PluginMethod public void connect(PluginCall c) {
+              if (!ok(c)) return;
+              final String a = c.getString("addr");
+              new Thread(() -> {
+                try {
+                  ad.cancelDiscovery();
+                  BluetoothSocket s = ad.getRemoteDevice(a).createRfcommSocketToServiceRecord(U);
+                  s.connect();
+                  JSObject r = new JSObject(); r.put("id", reg(s)); c.resolve(r);
+                } catch (Exception e) { c.reject("fail"); }
+              }).start();
+            }
+
+            @PluginMethod public void send(PluginCall c) {
+              PrintWriter p = w.get(c.getString("id"));
+              if (p != null) synchronized (p) { p.println(c.getString("msg")); p.flush(); }
+              c.resolve();
+            }
+          }
+          E
+          cat > $D/MainActivity.java <<'E'
+          package com.hasan.mench;
+          import android.os.Bundle;
+          import com.getcapacitor.BridgeActivity;
+          public class MainActivity extends BridgeActivity {
+            @Override public void onCreate(Bundle b) { registerPlugin(BtLink.class); super.onCreate(b); }
+          }
+          E
+          sed -i 's|<application|<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/><uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/><uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/><uses-permission android:name="android.permission.BLUETOOTH_SCAN"/><uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/><application|' android/app/src/main/AndroidManifest.xml
+          npx cap sync android
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mench-apk
+          path: app/android/app/build/outputs/apk/debug/app-debug.apk
