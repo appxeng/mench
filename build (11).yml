@@ -1,0 +1,344 @@
+name: Build APK
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Build
+        run: |
+          set -e
+          mkdir -p app/www
+          base64 -d <<'B64' | gunzip > app/www/index.html
+          H4sIAIF882oC/719a5PjxrXY9/kV2NkHgCGIAcDngIOZaNd2ZHslrzXrq9gTRgMCIAkNCHABcIYUl1WWynqkSnVvUnHlQ/LBqVup
+          SNb1tUoPx3alyh/8K2asb/4F/gk553QDBEDOaGU7sbVgo9E4ffq8u/ug5/DOt37w6OmPn3xbGKeT4GjnEH+EwA5H1u7Q3hVcP7Z2
+          4zTYPToce7Z7dDjxUltwxnaceKm1O0uH9e4uvEbVoT3xrN0L37ucRnG6KzhRmHohNLv03XRsud6F73h1ulEEP/RT3w7qiWMHnqUr
+          QvZefeinlhNdeDECTv008I6u371+70/vCdcfCNfvXn109RmV/nD9s+v3D/dZi53DJF3grxlHUbqs1wcj3byr27rW1Hp4Z5h3m7bu
+          tj24G47Mu8PhEEqOHbtUhv/pTm8QzeuJ/5YfjsxBFLteXIea3tR2Xaiqp9HU9MILKbGHXt2OPbvuh0AGrFe06VzOGw6iNI0mW9uy
+          R9R8tfNvJp7r29I09oZenNSdKIhiIMjYm3hm4I/GqbwsDccY6HZ7kA2nYxte11utdvaW2/GuX3qDcx/ws6f1MYAjkKwXM43tMJkC
+          YmG62kGmK4PIXSwndjzyQ1PrTfywPvbwBVPXtPu9ge2cj+JoFrqAWejZcX0U264Pr0t6W3O9kXJhxxLhKedFQ5aFoT/33B7rlNUP
+          R3JvCKJRH9oTP1iYT+1xNLGVZJGk3qQ+85UEUKsnXuwPVzuEFacrYDKd9yb2nMmQ2Wqze0LZnqVRD6VmGESX9bk59l3XC2Fs+jL1
+          5mndhtGHpgMIezHrHgjmmY3mGkR3Ohe020Z6QAMFcXGNxhB/O/agq9xt2ANtOJRzeq8h1J3An5rYf29r5QYvekM/AARNN46m9WRs
+          u9GlpAkNREy4q2laS+7NgDJAncBzUjOMQq+XRjNnXLed1I9Cc2KH/nQW2HjTc2ZxAvCnkY+jXu2oKO7LwgAZQ7BW7jHBMXXoK4kC
+          3xVQLRq8uo4kmCWmDjTq5eww1rRD1nDiEe58HINgFkttEnbqXBgsXT+ZBvYCHkXOOX890xhoyWnCiQyvDdJwifwy/XAMMpEy5l0y
+          2RxEgbt+Y5gNQqui3Syijajq7TXuQN7buH637XacIfC7abSaXldmVoJ4Y2pCm/HGsI2hrSmawKBDf8Svdo+Y6xNvqDiM4omgat1E
+          WYOh+01uwchNZOuFp2BZjcJlDoIBAz57P5ZaaHtKSOkVpFCA2hlKDDJCu23Qw+Gg0ewwIde72+Hbjaat3QR/FN0Kv9HxWl1buasb
+          g2ZrWIHf4QI/6NigaNCfwVnGicr0nwzTWpUNo8jkZlU2c7Q4TZelHo1ij9A09QMvyWV1GHjz3sieEqgVPVxinan3No1LEQWiCpmt
+          NZ6oQwyGkFyMlmwsByiP3OBSeZuaAJ5o5hDoascPp7N0i2asacEhY++bWFYUBBvlypONoEt4xB4zLUFKJiRyveW6oyZ2FHhpikZp
+          ajvZaxUtvjtwl9OI60HsoX268Ips3GJmMmPOTXkZk4o8IocbGpcPWyFfC/zE/6Nsom1oIvJrJOwBWLlZ6iGvzzerKwi1AMUtuifV
+          4YGCF7loQfAlCG1yYXf82AFu26nQaN0HPO+jWg0dumpCs3U/c5lOboaNkhkuj7ZZ0LZu0cAE3jAVVMNIBKZuCkQmpXsiONQkSoS8
+          ShdY7r0FsYkLwtwiWqjBaAlOZEIuxJwGgtpqJRCuDTFig0GgXQ9h7BV7lUMxtDK2RR4oeIPMJfyzMUMgdO4thjGEj4kwDZZptLyd
+          1gIFjZKuNloyxD93XWdTUw0UoTdnSeoPF3UeieYaCtHW1CMrYHY0rWA2MBxAFMl6FEIglK3V3Us/3BJM3G5F16ECWlGuFg1bB8N5
+          q2/dsF9F7dYzg8Ld4IGG5s2ZDTwIFROz3cy1n9E4kTPbkt9vamNO8zqF0iaEpRBqXHj1hrvpm4ZbVIa0zrw1gtIbLR5CAVHcA/fA
+          824W+SJxgOGOlCG/35Zz+ziKfbeHlzpEj1MUFBjR1LNTqaHow1jeL92t6dtgMe3QhinJhZ/4Az8AfchsTUGC17ZEzwxMY6UOBX+5
+          aSJyht2nFhUf+wJmodVqKdiDDO+r0V8DYTjs2uhXHQQCfDLDdFx3xn7gSrq8Ta9+IpVpC0H7qvSaUXwtjlKKOSgUloUXh9LYhPLv
+          XghKeQzNbWDq3xib1rYxfXMw7W1g9O6LjOpuOrg9Et8au6LppLB7Iwi+ycNX1KqZySg3dFtCkx3VhSlnpl9+iDpcZ2EId9jddaxC
+          5U1FANed+jBqjtEEtCrwsmAf3RSF+hU/gYMDQ4PzoEdoJ4FISXrT7K049ow67bLVRmMOowGVzkeDEyaoigvRCJug4txey33YwUHJ
+          R7SZj2DGr+5dABoJn3tti8freouWA9ZedGgHAXd3qQxjHPhOfeC95XuxpDYUTVHbig5T5Si+BAFICEFhbc4pxloDS6Z+uAbGLGzh
+          3YIvxW5v8KYgprp2MUb3WXgBQZdfyFSM9RfPYUafyTmvWuRVP8mq3pIR7jCKgFxb+MdjD1Pt5gaTzaLaZWFsboaWOnIUIeKSyrIQ
+          P3KWtyvyrFcj2JL4rw732arR4T5b3cLVhqOdQ9e/EHzX2p3gCtRYp3KKi2B/+cU/fi7cvBgl4HOApXMYTmAnibWLWr0LwI+uPob2
+          n3/1oXD12dVHwtVH1+9dfXL1a6j7WPjTL6/fO9wfHBXfozkIojCYwew4zKphFiPQ7CEKdwm10eNdKDuB75xDZ8OROrLExyKQOZVk
+          6BcmGbS49jCaW7vkx3T6B4+QMAJbndvFGoGRkd/E0F5v7gowlw+sXb76tLt/dDgSkjSOzj2oBJOyy+/qHJABgLljcgBCq7UrOAsG
+          KbZ2uzk8tmyC8La0brQrrYc3Nu00X7jpQRWq4XmtA7fSGjHF1vhWBXDTbVdbI6Y3tK6i0Wm+cNODm6FiRHnD+Hjrg0JrXKLC1vsj
+          +AeiwNdSQdZIqG6ULi5aJ5uidfL3Fy3dbQ+aw4podQct2xhUpauVvYT2F/qZ2jCjAUxfMQzwZjDV6IKDfKXZpJs2Lh1koy+Adg66
+          g6ZdBd0sgesKXW1saK80dKFtUKEpNJtU6AhGGwoZ4PydgzbMHB5Bpw2Num9pQgeQaJ8ctIQDKHexdneNhmEYVRz0Rml82VO08o49
+          tXYpWsCO/+pOh8ODQcOt9nvwgt1uEVGu2EWhK/awfZxGFViDAzMImKG2blOOg69rzCW9ulfAZf5wH6wsv95gqT+5+v3Vp/D6p0Jm
+          tNFCC4fJBF05qkY43sV+8P6ILDf4qJA9GdATuH3hPj6Bny8IyoY2MkV09Yoihq6lZ3r41Wfrod30vrH5vpG///nXv9/YfL+Rv/9F
+          hbRf4/7+9B54vk+FP316/cHVl3D/55/+XLh+D25+D04RaPEbcI0/Q2rsbENnjcZEEgepKKNf/vlvgFHA5A+uPoF//3LreEoALocM
+          wH/53yAoVx999eGff/rh9dtYEPaF6/cRH6hB9lz/AW9eHLIfMsgf/icBwZGz/wyvgvSnX8Lwv/oC4oDrd67f/epDuWCOs+AjnKLO
+          QHQCcQiLmzFGhRh5tyK/m/Z7FBVQSSBWIi795Rf/7afC1ZfQJxGaM6PQc4F1ZPt3M5gQQe8WHqSDHIWsauBuVLnORlWSblRd+mG5
+          myIWfPibEWSBILQ0s3s7N2DuQqGzGntBZLuMGP/0PyiSu/5gQ3b5D4tfjwYLYWwndqi6wh9/C2J69cXVryHUA+5JVYGBBx9cfQrM
+          RbNTq3L9lR8+fQqM5mB3DhMn9qfp0Y4ThUkq3LMS68iNnNkEhqg+m3nx4oQ2eaJYSmQlCawJNAi9S+FJHE38xJNi6yjx0qf+xItm
+          qRQrk0SWezsQMAugn9ZyZEIQqISmocD0Ul8pJ1Y4CwIl9FJrGUeBZ4pIlkBUfNekJ653kZin4stif6W8xhoPZn6QWqKoAFXT1xxL
+          o8IJMI7XfWfO6x4GltbjQ3n0g8fWqcijJVEReaSHJRZvYYnFMVgatNsue8ocB5b0A7fh2liy9U6zZbOnGMtg6cC2WwNd7CuvvgId
+          Xb8DBH736nN4cvXPVx9/9SEWvgD5pprPIdb+FAsfA6/fvvoSisCNj4gnv6K2129/9SEpxefX75Oqs9p3rt+//qBYc/UbaPPZ1Sfs
+          5rdw8wUU+9moYcynbUXrK3DV6WrQtUHXJlw7dO3S9YCuupb9tNhPmx61qVmbXmnT6+zaoWuXrgesI+yvxX6a2c8BXbt07dAVX2/Q
+          1aCrTleNX1t0JUToatC1QdcmvzboarBu6Mp61vp95an1WJ3YU0l6Q/Fl6+jxqeTXGpp8v6n15Yw6P34I5IG5roqAOmprXYB/UIJH
+          WOgrj1+1JEc5Bzinp3rtnJCDAdbOkTL17B5K/f6pkxP/e9bSMBtdpQOzRqVrNnRFb5kGsECH2bNidM0uDKFtNptKSzfbHaWjmwe6
+          0umaB12l2zEPYFBtE7jUNo2W0jyAiaPSNkwdWNGEOaXSaZqthtI9MNtd5cAwu3BtmR1A48DsaqsMCce3UuvoRA0tyzgGihr907Rv
+          pooTsPqRhfOyY8eXUhmqo3NLmioXMNKpZWnHF5bVNqe1i0Or2eztDGchzVkFcrFL1kFgsRAcwSiTuRUcN2H22/OHEnnko8lcpoI1
+          mffuSeLd0WNRVskiPvaTVE2j0SjwJDEKQXll1uLkxhZ3oMkOtgkH0MYPQy9++ekrj62X4theqEMwQtIy8MIRzMAn85XCmX+2xR3d
+          WzKsLL+mHyNsUxRX1XDCureEx6sspGB3uWk+k9U3Iz+URDFDagxIoWN4xJNMeBfQgXT1r1efgeV9W0BLDDb+D3DzAZphGXvuDcGi
+          opX0IYDyD5s9v1aTEaQr1vybiMEjHsuXV4Rgb2d/X2gKqT1NYBwC5aCYQmz7wLCh0PiW4PqOR7Y4nYKFTFOidpoGgHU2bgnItYSQ
+          1o4zG56mci9NrYJVxzYEwWhpmoycrtXg3sJlUKjuYY+SvFoVBIZVLZPQlcRYlAvDBUk5NDQaLxco18o9jhN7dup9O/DwThLBBYqy
+          klqGatRegamGGtuhCyyX93S1q8SEvNRoa9WHWld7rsk10fVGYs9l1HwV84LE2MUKcumqkyRPgXfWGS0F3luWgRwYq/u9eh0fpKtk
+          vfJVdz1cw6s2Vw9WyVlvxy3I6Fkp/pwNvDyUwjUsgBAD0Xq4eFUov5WVqx3y7VUUyi3C3wbZB2LgRoKkV8jRBlqsJXfFIouzXk50
+          XG9S7enUC91HtKDsyr0K910IWibRhSfJSgtlYLVC0UtwPsbNzpMnYFrRJJMZ7zJjzn/B3OelZqHcUFp011cQbytExS2QbHhvyXRJ
+          iJiybh/6QUHt/ezde8snT07DPnDDCWaul0i+vFZ6iLH8ojLnJMlM6MWNEunY4YWdgEA7FxUpEitrudk+1ObyIJW3reNmC796SxNv
+          YY9zgVt4hOjcAjxGHrM/c8DPcAE3VLQnTy1gR2wPQW0vhwmGSsPLtKChQ59M+oXK5sIktq9jEYfGl0mYLFN5Re17tut+GzFG2+TB
+          Q9BuDxc5AboPdmMNfjCLk1SaK4tMyx0LIrLTqqI+1/oV29Aq2QbbqsiyanSVxNLVVkXIm2qr9+SpOp0lY2kJ3SoXc5NaOFEi2fJe
+          olwsWEUCTKeKwNQVZyWvwJ7dAULJSKzYg6A3SV/KlO87uCQtBVE0lVfrweE9Em+ukuV8DQJkSVM0JaOmkpNQBqQswItlIklTcLNq
+          cKRhtQrj/rbtjLFyOVXnNWuqXsx7U3VBpUUPLzVL1dpYmu9ZKm4IqEEdqvRGDzofBdHADl4KpmNOpok9l6CFAvDhMS5GnJDBmaoO
+          Vgw8mK88gYYSPbdjB1rPFehRMVSIGpW22sjfBBsk95AkgCnTtONbiGNqBfIMoMplvC/zVu9+E7u/lfexpVd9QVMDiWht+IBNO1/R
+          UG725ytMTYFJ3L3lYpVvWd9bJqv1BhPcgctprLZtM+23tfsC/muyf984B6Nlt2zlrq1pmo6LhVDXRjebW4O29qK7PpvZCaoh5zsd
+          +g1pYEYrETw78epg7fOUDHC5vBaiCbWVfI2/2C4a6DpufrLMGJTjYp2th8IdLFffuJ7sG0B+hVdzJc6q82QM+SxnOx+Jpa3k2/xZ
+          w2D+LJdeWqr4zuuo36jc30XCX9iBBOYT4GBAc4kBzSWFSPlTGhBakpPnz0/U6fiOJQJ9xK1AYi+dxeGKmci14d2T1KrrVruyUjDC
+          21q0ZHmlNFu4z46KZju9gh5KqTJUXCUFc5hpXWTZDte3HyQOKLqNk3tZGa3r/y0Fb71ITRdTz0oXUBoSG0NnocIoZp417MEUAJqp
+          QIN/wJqXiL7ShQLj44+8+RTkNMQE69fsyfRpVGyogrQrac3FbgCxEE3oCF/NbgAb8NupH5LUYDO2hpSyIhhgfLvIN2DNOW6FL5a2
+          A4N5/hzXKV6auX6UucfMbz7VaLBslxfRwZj2HGY0EKpWLFabLBZQ8qlW8/dUrVs1NKrWgGleNQRttDRF1VqKmDyb2TG4R1UHTdzh
+          3UAAQRCVloHNOoqYxr4dQqCPDbtyhs48a6fDrFxtIDj7Mo2idAztjFbeDgTytGXA3Lp1ANNJnII32/3cv0hDio7yMegtEAqY6hY7
+          NVCMHDuF5p68ZOFd6KWXUXxughzNPOpVkELK0pGFfeHSH/rZvfD00ZPaj771BCYcCSXNL7AFmSwAIki46CRgis9CJiEdD5RLP/Zc
+          IDFjCIQwD5/yuQhbvbEuwfpFl+ojm9Q4inGsdx7JTHcEXBjieiQ9Up8EM/BsyYMHeVF9CCFKeC4/fw6PY/B7EK7E7NlxtUISWWNR
+          piUoUKdB6ljLlTLzrTFgRDO9qVGaf47z+fbj71vLsQmtncSEiCs0NSUKUe9AFMd+oo5h+m0NVxAfxR5Uu8rU8+LCswcP8qK0dO3U
+          NlkTxU9e8XDPPvEgRlF2vAkEYPB+pseJ9b2TH7wKmhD74cgfLqQlPASXDQRXcWUNxAJmeCDf4jF14CSnWtYZlUF1QWMS2eRVubw4
+          1pGTPcSeY8+5kBwlkZfIu0kPNWzCep/iJxjQbC063LYBsyaqD8giOr5r4U1m96g/IsdETZWJ6ipbcBZfFk0HIQACEHRKjozWtdBw
+          HCUpmleELjpiDeekCBhMBce+Sh/fJYjgDlbZkClcdEiPNnGQlzNfEmHS/pvrn+GS9adffXj132m5Fqbxv7v6bHMZ+88//V/gGsb+
+          Y4oPVzAjfs16/P1CVIxIfzekyDvvj42E+IaLnxYtfvYefx/wgxAeCyBP4tgXlQl3MVnT9exmopJUyfkTGhiv5TrmWSjIDg6s5z14
+          IHmllYv8TRbryb2TBw+ga5I6EfBTTjAe5MjYTo4MNGPdWNaJGl2Gpydq2pdtMODAWJBmfKvsAscDINFgw3lu9seWGwoWnvFlg36c
+          XRskQyiT3KKgDCJCPYY0RAkgOIAz/ODdxeGJesGtS+/EcmmpZFJal0IxBD7gDItWrUoPeTzBn4NfgSARQ+gC+plcsDBBXubDRd4u
+          V6UghbVVDK0SnDgTaSJzi1QySGe37j2MIkm8t5ysREUc434QbvdcfY5ie/0e7i99cfXJ9bsvtqlUAPVmBgo3H2h9C3fUioDW20hG
+          tqlytuKGc+C8YcGzIzC2p77bB0vNS9YS1ddMrCNyC5LM1Bn0V5kkIzNZoUyhg5r4GFQGtKdRR7dTf90bnETOOe4+kFAI0nQ2ALyF
+          AW77xokihJEQ+IPYBhe1purkWZpKUQjQwXZHENjCz9D2g8zW/giU8jJJzP19Bgf49myu+pHZ1brNfXwbqFFqMAavOHkGwczE7Har
+          bVKIa9RJBKGBD2RSo3iEgHArIfUsDFpwuvLtEJPcMTJL3bzyWx6v7GUhCicmhGa4dcPxHVipp3oEAIwzt7unA67bR0ddJSs/MFot
+          RVXVQX+lTM9TSxrTJ1joiLGHwKJgn7WFuRcolxvRE9cK7utGtxccHVkd1KlAdp9bWBMz4wOW+xJmBzA/zBAQcBQ/gqigS6s40ukY
+          e46pe+ilL69KK85eyFTFP7J+lFklDohxJw/nLhMiUM586UenELT1FZGoLvcuE3UAcWS8eIrxrGhj74PZcOjFItExOrfIz3JwaVRd
+          /AQAThAlOF3ooEZmVLenvrUECQO/DN4RWkH47C5OMA3NsvQHD6CGRBcoK2nzhqacwliBLxDE4qiLTOqjq00QFAEqvNY1cLVMV9av
+          atgYiAXtmLhaHMnCWxAw0gpcp6N0dQViQvivqRg4ydcyUOJELIetahqdkL+UGm3QOlAcTzIgmpQRPd7fxEsSe+RZXkHaKoz1mOUn
+          2j4DGWVy8OwwE7pMrVJrcPqsf3TUpJZT61lNVwJLA6OtK3MUtDk0mAIne0HNkuYPdKMj7016kz2UMy5dWNvNXVzoWtNaQHF2alnG
+          gwd3IpgSAH/TeOb1ysvcERnckg+6mYNV0dXmjzTig9LQSCIYIySQCDD5rPtGPs7AkmAg/cPDrvwcR6T3e2RtpNQFp0sSMODkntYM
+          Bf7V0kBGzd/yGB4pgJIMMvDMgkIuCSSiVj4RxZFvjJipFbxCb3hxHLFVdAj5+SMu2k+fWBAHijDhd8Z1CDKi+ryzL9acXtFqvgyR
+          i4T45Yt8kzcgcO6RPQWlGGR2ZEvQOLghaEwjmDq/LD5/PqFlXgtvMr9M28oWdHLKHvZpUgChYaly7T9eekNF7Xz6hCGpbETMkcne
+          UfBiQk/KBP0LWCJwzizsXEGJR8ATdULhKAzqpTcsu2erSQG63INw8YySKih/5KPrd3iK5cfX7+PlHfCQWMCME/NwEPNknWyDAGDg
+          Cjf+rrLEHWiU5aegj32fNvhZRIpbwhCTXr9vCocDcrIQ2u0e6Zixciaz7QCMX1nvX1Ck+lk1G4AHt1AGUBDcVh5DkPCR8A9PXs3G
+          AT+f4X4zJYqqoszXHF56oyQV38Nl9aJU4MbL9IVMTZcZDUcZRSkYjr9VjiZeJjkIT+9tZWWVi85afuyvFR8UGZKdibcpOtVVJxb4
+          gVECbGSaWxTCMMzc+JgScpEFAskRBlWYnMUZBBRfKTqLCf9/8bfC14dpKK1X9GlCgRlGbFVIBdIAa0kp9//Dv3eXjdW9fRWjHSBG
+          xgnC+VNE9V8xwaqQa8VmT5n8FPu+HFLd2m/c0nF6Y0e/wjD36lfXH6AOFSgP/QoSKqzw1e+Eq39hzLh+XwZksgAUFzsIhWVqx1Bp
+          piuQ4DEYzNg64vyGeFaKccYqw7yAJDJjUYWNOIl8H/ECzV6nnyEu2AzTsRBDzPXbSAYjhm3JB2Mz0C8x/FaFq3/OI/LSOBmXr9+/
+          flfgQTulqeWy9zkWKlwfpG9KMLiYzYVv41tGqmz9bomvfSMqVWS1jHpGnT/+y9a5yx//D5fhz9EkcnKQxsBo7GQROkI+JpjBTJQ4
+          EyacfVsxLiiIPSwfr+foZnHCSUEFuiMUO9RkbHcbWYSSZmbCTS5T16rrhQca7livPIhCBQR5SB/WMrOOyWkTe85iJ2u3sSvQwwnY
+          JJhZzSZe7Du7wjSwHW8cBTA9sHbRenxNOlpBn2ES9wFh+Wk+cxPzVWoeDzx8anEOk5Y9fJrF4kQAZrOA6r+++lK4fvv6navfCpRV
+          +muiA5kbTIJ4//rnwktPvi/w7DQuhmhtiFdE4zu0NAhRMK0Q6r2HT1Fw1huOGFuKikcSRdYcRcpDkVI8FYIqMOHVV1Am6ZXq+hGt
+          OWRi6TGxXGWMxqxOWk7OmW1f2j6SQg0ItCQzI/MRTHx/JjAp+ASG8jugxrtcLdfZoELFk+dGl+skWKa3MS3zie3HMrPA+PT3lP3L
+          gwcm/ZXpdi77pMLMBvw1UQN4lx0UwDzPR8rHO7WRGRLoLI4cRx1km4JibsE2bc3GxyUU9oi1gDK13K2JOgURReMj3lu6KpkSkRJy
+          XBUPeHn+nFduy80x1ygxmuaD5ml0Aho6cgboEV+MeZw73DGuQC2yoIM74UJTGjrq05fkyAHoh2gXfoWLhGgSOLPQUIEHQDdA9uoz
+          Zrg+z3rgYoi5wWsR5K4Xdf8GK0IhEms2t3IOogcj20MBpilCKI+BZjFo/dtj1YLnMYV7y7nqT58/F+vi6m8IZMt0zlZc117ihT3k
+          BlcYlV/E5OqtLfa1mDrNui0M/2uMbxbQbLW8pc1InHzahdXO9Qr5a3z1EBdjbRnPk4CGRdftQMB0ol5YElyeYz6Unq9L9jYN4Wvw
+          X3m5l1v+iR96mDpYeIXl7OJGJ674pn3L2liZpwV8tvjPFuuCaOQ7lV1Wqbqon6288xCOIRCytDrlfJ3kYCghQD2BSN13zZIOKCOT
+          0hOV0DxXBlFqbskYOs8zhvwjK5QxNZml1impqSnTsSkCOoGouLihEztQF3sTLAcjvF6adV1J/DnbnFHSGBpc4LbPZXh7bxsUJCJJ
+          2dL7qd8HbYHZrqxMzXWO5fENMDE5FZNOaB2CdSydyyx3Q8O1tL9pBRulp3cOwioVZYoJGTLNVm3cL0U6yW70WoQJI728fnIBEoXb
+          4FCeAhC6C0brDQtb9WV5ckG/LEScxpHjeaUdXdY97TKowEraWsjBsq4LMyyGhXJQ3jMIad8X9CBFPUhrunz/RA17BITBgHIaw2Sz
+          NOJKyJiNkOFCu/us/2zDgMANZskCwbnb0lOhV5dxbVt+HrwVO7UaQ4IZ7STAQ63YI29i4dIhgO73cMtibkFxTc223OPkK3Er8EZ2
+          IOU7/1N4aUpEpD0QEq+TbAgCpf9KmP97fKr1Qc5lU6JEYHAzWU22kozLkYbS6GdpTb51FJ1LUxBg5UKG+S0VaxdHTe3Bg6maRJjw
+          sVDehLG/ecfyHzxYWBZrIW8Jz/ORLNkKHy7d5YS3eFoFp/tOcSB8mBcWESyLT5BQELvMHMDBppUEuzZQNBk1fU0QTuN+b0cAkEgL
+          3iXQOov7gCEN5Ae7A+HNAvZ8eZtSDFY7AtUyjAk8kAKomK1P8Ib07hp0qwp6R9g+5jVaTBLY0nVRoIuSTKhwzLKInpYhCjQqDvWv
+          hVmiPYgL2Eorkz8W1oP6Z92xzpOxP0z5fKKIDggQYUGqTvRTPcwpkBbW0QI5gw/S+NAgtY5Ba25ANEMOD17xw5mX7zxFqbW2KNg/
+          lJ8/zxG0LF2+iTHQ8liClkMfHLOPCfUMRRBnRO34OBhVkhxzsM/RTsNj/CBhjRLDnYxkD22kFYzYGDjyG/oBSPjrlRDou2J9AATK
+          8RbNYPLORsxEnN3DJIt6pOQmTG7Nx97UuIxn/Y2sae0mjeLr/dN8vT8d5T3Uas/W4MtGzjA0ysH83umzflXV+Nv4qPIWz0IWGF7P
+          spHBzzrvZaHM+Krb7I6Vktl59uDBsyM+8FkfrD4hNRexq0FgLUMTfU1wjBc1NDFoUuYL03GkZ7ifv4F7i+XDczwt0nLGDlRZAHpp
+          pQXiXkJ0t1VjMmVQHIu+zFDsbETISJtL15IK+k2UbGTcErIkpnMY4fnhRe8csy7xZVCWm9jQ0NjUF5uB5cZxDOfoNIdzHj1i8dwS
+          z8VaWhPfEGv+ijc/tLB9NueQdG3PqWF9Xcfvb8pMeVZiivysyK43+ZPFETiOBUJ98ICg+dJMri0YOMsCM/Xs9M0X597p09N5H9Su
+          prYUKupY7CM/cYN+O0vtgtFBcnwtXylnigXYWR65gzntnC4xxMgwgH3MeeYbGVRxn307E983ZMc6qDuZj3UQ24N6TJgW1tfnCymF
+          aHJ5m34XXfqp2qqle+oBfp8FoFCUp3lsn0nbNOavAtPIOsQkbnzpx/rxQ/zKiSP2kCjZrUk+oLynq23lIREUa46OdKrqZx2AOYiR
+          j8dPT5lYTGPGxb75+FXJgY7rTT2PK55xJj3LOFTM7rPPPTA3bynnGV4vWTAWW1Ye4u9bsuLOLcSt/hK6H3dhIVpwo/eVxyGbOowX
+          0wgCxTk8hah/btXdxf7jUAkXljvHwquW3lYui9MMZsoxl1d6HO7rqo7BOdnXcp6g9Woxszmx/P1XlcjKU1WTPSo++e7epbynNow9
+          SW3W1PZe3oB1CQWYWWCmsZy9sG/UVBC+3pTtqp/i4GrufC+phfO9SMHh1dwF3i72oj7fkHGts1fuLafQdHVW+dKohCdEPBSqIUz4
+          relYkvcNhdXqea2Otf2eW7POfoiA/f5KwCSQsxVWPcaqV7Gv7NtL9uVl9h1l1267jQGWOkPbMxwstVot/HEPOs0GfVjZHNoNuyX2
+          T8/vt/sKnv1LFLBTOzQkHApyc3pKyCh0r/F7QHlP72r7nGK9HSZNZ/npBPeW7qpwEACex9vQqmcBqHiExtefPlCsxgWnLYchlLu7
+          t3y02ujL6H7DAxYqQ9A0rbkBFE9t4FWunYwpzQGqtZagGs0X62/ncCSss7F3i9nYJE3ZITtwDxxaycWzKlS9JWiC2ugK2itqo4nl
+          ZrOuap31HdyUzoAwXDwrpDIMrYwrEMELAn+KcfYcSafvCjGOS+9k7Yokvpm/ALd8gANhgyc4AJIHdIYD0Oq2Ex/yF164/cFGB0br
+          pkbVNvsjzJUqG0Dj/70FNLq3W8DG38UCNnODllu+A7Wr5P2qhlK2dNDrLS2LRhCTVVZFQ2R4Hbdh0CfgjQa3Nl0wSDp97t22DedA
+          p0/AtY6rUzu7obcNPbNF37LEuxDYdXWbpwvN6GsqH65VIpRocOlaamNP0utqp7sH5JDBkjeViWb5x2R263pmeItmt65nhjczuyaq
+          njLRv5mxVpgTmGirosXW0UhHMzDaN5qrb22Yq3vLSxdw76xezIiAy/Fv6+DR1g5eGDimhEHkwfrITANqEhsmmimmUPxex/t4znpB
+          57tiBoTdGqu1FcGRZ1+N7Kot1MI8W/Hv4JBAcGqA9dnfYmMbgvay2jJeUZtgZgNVZ/aV31TNq95pbnoJrdGq2tcCeDDUjwEm2G1D
+          /2EdbKyg4S3c/WS7td0mL/BC6zZHWWRa1QhTVYub+AKuMByvrWk3vv7Xvt3a7J0O9GEAbn7h5vY5NQGmjiR8rOrMD2IFvy+xajsN
+          Wy9y7pJqdABqK4C+kf8N6O8trOR1daqEuo2jicrOJbBd3BcA5/J3ci2zOXcoM/AszMWAs5kt9mD86G1mcyyROU2ss/xUrOpQ8Zvc
+          zMKmYE176eHjEAbVS2tw15QTtAH4jjDXkY7kMwB2Wg/nQNIFrwTbCF1D5QIq50apZY21NEota9QyVyW722kaw00WdcggZeqd1DZw
+          qaJRxODh+jm/z57n/Xbspq1vUeEDZGF12NURV7qqVbqqfYOuKtKCB7Lg+iw7mAVmob0sERR3FQa0fVBITQc3me0oZ8dPKK9bwbGu
+          m7qmvGzpujLDlZP915UL+n2ZPvmw8AtS5VIZK4ORks4Vby4Xkvlv/XS0/M2/c/Mn//O92ep+9vHn3gWUs68/L+lJ/vnnmB4Wvuy8
+          txyMVr3Sgc90OFDdT71Jkh0RdMPRz5WzIfl5zHSQ9r2lN3/+XBRX+CFj8QONlKqBsOUvL1e0QBQAM/gQbTow9DX8as4SdXyB1a9x
+          t8SbP0ttaffxn3K34Rp0gi/74yUyRDrCjx+u12pOgTd9xcG1P5c+9VUaEIjhP/zK2+nXRJrfwX/l72UNIztlHf/gAT8SVqyxlzDH
+          WMhOMYkdJgDAfOI89QNRSFdZ0FXtNunf2Yudc97l55zjt7EKMe8M0TvbPDV240T+7M8odEsnuhv8NPF2gWWI/+MKkQB1xIjGIt71
+          hp49HIry+kQMBz+CO2z2nGLw/PQUF0v6PXoTP9ZSEjS1nEy98vJeky3vZQsutK5yLrN3cUWFllOyd1dsLacctrLjR+gFekzLMI3C
+          Cg+r1XlttsoD48FzqDFvRED2NNUDBf/pIAb4D/NufKd0EDkexpT9rRKFH8RU/Fsm+FwGqfnLL/7pvQ3haZX+0oLe2Ty8lx2OjezO
+          k1m264W2r9+gG3cNW7db9vqEltDSeyFtg/XCnM7EWnSNIZ2JIM3raktZ4EWH/0thTVqv9snyfeMY10O8A7srmmAhmRAU1KP4B0+A
+          pEZOUk3R2X90gJXR7GrsNcyVEtDIJl6cvuS+aaNlQWsriQMPMPdwmVI523I2Jh6NmR9EcvPx6S9+bAUmgvxg8CYQV4W62PcS6Xty
+          tjMonUJMgTrw1pEts/OZshoec9Qw6CicxfFCwA5LwOigJj4/rrEJcgnglt1YGAxtyz/LfUrO0We1fEHy7BAtsEBzB+Bws4EeFG+A
+          00YbZw6ZNOLCRKcUZJUWa+xtsYMwtYGYdRIAPJYOn3OQl/yY0g7ErEDeZ3QKEeICfrh0bgmeMHlWyhjJUjyyPT33jsWPS5OX2blp
+          VN/jx6nhznOPH6PGF/t7/DC10mJ6LzuHrZd5+bKPp9OLnEot7SjQi3fQ+cs8dNgMCNaxg/J6sg4OEowOyKXSkkNpJ2E6VVI8ACg4
+          nk7N0+m0L6+f8fQOfJGfCZIqPu4F8OXzlSznX/GM4il+tMAaZxAiAAwPTiN1DmKRl54/P4VuCGKEEDZe4mZ4tH5FObcw8cH15j8Y
+          wktKaGUbggp+unou1iKV7adEqk8RsbeObkZeykObh4vvuhIl0+B+qScvva+JgTCd0QI2e8VYKD0XoYJZPVD0J3E0BQOykMR63RGZ
+          jwgkwEfuy3m7akThlQ+PWu9S55keqWUBjAcPMHWIoFXTPyJM/2Bf9dkmZosovgl1KwhnygGOt96qiILEypeAQqUhK3F0yasczw+k
+          cB/byEriWOGRfqx2TV0Bs4dlSTq/Tw/rEv6gZTbw7ATM2llkLeh1MNd1CQEX2uSUYMoLAtdRm2ZH3kucmnh/TVAMKi0JmY4ONJrL
+          +68ne5ilV2wEwSZvA+40Wsj7L6/b7HhbTv4KRqJyE4E3qVogOn0myeNllquP6onrJ66j0p8OAFvBRRG1MwQLAU9KSl2OE7BNcYXL
+          +RoRdEph+GzgwUxAxaCl2Msp5ZIoTTwMqk9WHU+DKhy15twkb7Thzwd8QlJ2Z72tvxYvaoaiBYMrnaPEkyzRADIj+ZrDbGRmFfPj
+          y9hwX0utpW5i0lVfMfC3fgClhnkKv1jXNE9ZoYUP8VkbC3pX6696mL9ToHvheAaHbNUSKFOrsZ7Iq1mv4UDcU7/fxy/a1yelkMcG
+          Vc5PcNHVVlI5z9+A2BjPeNBlsfwyO2YlO1D/3tKudQwINdXzFf25iOxY/XvLt0oPzlZFRbS4oUCi91miWVo+n6+Qt3JMwZywPnb+
+          E8yvxYTnL68+Fc0zOnP346tPTKGUY+pGaR6mlOZd0P+KT5nYTX7O8b3lq6/kaIHfXwvDsSj85Rf/87/S8V/5LtVlSEpxiQn9vUqu
+          zfIyvDE1Dh4Vvrv+yy/+8T/i0ckf43F/f/qlsEbiEpC4Uz65GXG6BGee5cTTtwpABgFJdFbLUyHvFA5CoOzb7cfrcvKU/3QGD93w
+          b3RtO4B3zYdf0YkGhcxTU2SEuBwmd1iMAHQYJjxcyM/FWbEcgxKFCpmFTKUGAVonjByYaj0MmGrxqELNkjtja4BO7iEy1w9Hj2jU
+          dKCW3GPnSMVkV2v0FllWtKoxP2grRnuaP9P7aE3j7Owtrt3DOUPhO3OGAo9z8mMRbnK2lO5ABMm/ZIst72Zs6Tgfji3Hb9/gGGY4
+          gUsBo5MrDJ9+UAhIf23EAoFmCoWnW5QWAIpG71jabvSORf71EDvLm6eT01+EAO4Wj64AYb36NSa886b0fYpZ9DOFPnKw+AkH5qlf
+          /5wy5vFzj+zzHNbPf36v0k/xC4DsbdYXBoeguOz8YRBC/KsXh/vsL8D+X58TcpYSdgAA
+          B64
+          head -c 15 app/www/index.html; echo
+          grep -q "<html" app/www/index.html && grep -q "wifiHost" app/www/index.html || { echo "index.html is broken"; exit 1; }
+          cd app
+          cat > package.json <<'E'
+          {"name":"mench","version":"1.0.0","private":true,"dependencies":{"@capacitor/android":"^6.1.0","@capacitor/cli":"^6.1.0","@capacitor/core":"^6.1.0"}}
+          E
+          cat > capacitor.config.json <<'E'
+          {"appId":"com.hasan.mench","appName":"منچ و مار و پله","webDir":"www"}
+          E
+          npm install
+          npx cap add android
+          D=android/app/src/main/java/com/hasan/mench
+          mkdir -p $D
+          cat > $D/BtLink.java <<'E'
+          package com.hasan.mench;
+          import android.Manifest;
+          import android.annotation.SuppressLint;
+          import android.bluetooth.*;
+          import android.content.Context;
+          import android.content.pm.PackageManager;
+          import android.net.wifi.WifiManager;
+          import android.os.Build;
+          import androidx.core.app.ActivityCompat;
+          import androidx.core.content.ContextCompat;
+          import com.getcapacitor.*;
+          import com.getcapacitor.annotation.CapacitorPlugin;
+          import java.io.*;
+          import java.net.*;
+          import java.util.*;
+          import java.util.concurrent.ConcurrentHashMap;
+
+          @SuppressLint("MissingPermission")
+          @CapacitorPlugin(name = "BtLink")
+          public class BtLink extends Plugin {
+            static final UUID U = UUID.fromString("8a6f1d3e-5b7c-4e2a-9c1d-0f3b6a7e2c11");
+            BluetoothAdapter ad = BluetoothAdapter.getDefaultAdapter();
+            Map<String, PrintWriter> w = new ConcurrentHashMap<>();
+            int n = 0;
+
+            boolean ok(PluginCall c) {
+              if (ad == null || !ad.isEnabled()) { c.reject("off"); return false; }
+              if (Build.VERSION.SDK_INT >= 31 && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN}, 77);
+                c.reject("perm"); return false;
+              }
+              return true;
+            }
+
+            synchronized String reg(final InputStream in, OutputStream out) throws IOException {
+              final String id = "b" + (++n);
+              w.put(id, new PrintWriter(new OutputStreamWriter(out, "UTF-8")));
+              JSObject o = new JSObject(); o.put("id", id); notifyListeners("conn", o);
+              new Thread(() -> {
+                try {
+                  BufferedReader r = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                  String l;
+                  while ((l = r.readLine()) != null) { JSObject d = new JSObject(); d.put("id", id); d.put("msg", l); notifyListeners("data", d); }
+                } catch (Exception e) {}
+              }).start();
+              return id;
+            }
+
+            @PluginMethod public void paired(PluginCall c) {
+              if (!ok(c)) return;
+              JSArray a = new JSArray();
+              for (BluetoothDevice d : ad.getBondedDevices()) { JSObject o = new JSObject(); o.put("name", d.getName()); o.put("addr", d.getAddress()); a.put(o); }
+              JSObject r = new JSObject(); r.put("list", a); c.resolve(r);
+            }
+
+            @PluginMethod public void listen(PluginCall c) {
+              if (!ok(c)) return;
+              new Thread(() -> {
+                try { BluetoothServerSocket ss = ad.listenUsingRfcommWithServiceRecord("mench", U); while (true) { BluetoothSocket s = ss.accept(); reg(s.getInputStream(), s.getOutputStream()); } } catch (Exception e) {}
+              }).start();
+              c.resolve();
+            }
+
+            @PluginMethod public void connect(PluginCall c) {
+              if (!ok(c)) return;
+              final String a = c.getString("addr");
+              new Thread(() -> {
+                try {
+                  ad.cancelDiscovery();
+                  BluetoothSocket s = ad.getRemoteDevice(a).createRfcommSocketToServiceRecord(U);
+                  s.connect();
+                  JSObject r = new JSObject(); r.put("id", reg(s.getInputStream(), s.getOutputStream())); c.resolve(r);
+                } catch (Exception e) { c.reject("fail"); }
+              }).start();
+            }
+
+            String ip() {
+              StringBuilder sb = new StringBuilder();
+              try {
+                for (NetworkInterface i : Collections.list(NetworkInterface.getNetworkInterfaces()))
+                  for (InetAddress a : Collections.list(i.getInetAddresses()))
+                    if (a instanceof Inet4Address && !a.isLoopbackAddress()) sb.append(sb.length() > 0 ? " / " : "").append(a.getHostAddress());
+              } catch (Exception e) {}
+              return sb.toString();
+            }
+
+            @PluginMethod public void wifiHost(PluginCall c) {
+              final String code = c.getString("code");
+              new Thread(() -> {
+                try { ServerSocket ss = new ServerSocket(45678); while (true) { Socket s = ss.accept(); s.setTcpNoDelay(true); reg(s.getInputStream(), s.getOutputStream()); } } catch (Exception e) {}
+              }).start();
+              new Thread(() -> {
+                try {
+                  DatagramSocket d = new DatagramSocket(); d.setBroadcast(true);
+                  byte[] b = ("MENCH:" + code).getBytes("UTF-8");
+                  while (true) { d.send(new DatagramPacket(b, b.length, InetAddress.getByName("255.255.255.255"), 45679)); Thread.sleep(1000); }
+                } catch (Exception e) {}
+              }).start();
+              JSObject r = new JSObject(); r.put("ip", ip()); c.resolve(r);
+            }
+
+            @PluginMethod public void wifiJoin(PluginCall c) {
+              final String t = c.getString("target");
+              new Thread(() -> {
+                try {
+                  String host = t;
+                  if (!t.contains(".")) {
+                    WifiManager wm = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                    WifiManager.MulticastLock ml = wm.createMulticastLock("mench"); ml.acquire();
+                    DatagramSocket d = new DatagramSocket(null); d.setReuseAddress(true); d.bind(new InetSocketAddress(45679)); d.setSoTimeout(1500);
+                    host = null; long end = System.currentTimeMillis() + 8000; byte[] b = new byte[64];
+                    while (host == null && System.currentTimeMillis() < end) {
+                      DatagramPacket p = new DatagramPacket(b, b.length);
+                      try { d.receive(p); } catch (SocketTimeoutException e) { continue; }
+                      if (new String(p.getData(), 0, p.getLength(), "UTF-8").equals("MENCH:" + t)) host = p.getAddress().getHostAddress();
+                    }
+                    d.close(); ml.release();
+                  }
+                  if (host == null) { c.reject("nf"); return; }
+                  Socket s = new Socket(); s.connect(new InetSocketAddress(host, 45678), 5000); s.setTcpNoDelay(true);
+                  JSObject r = new JSObject(); r.put("id", reg(s.getInputStream(), s.getOutputStream())); c.resolve(r);
+                } catch (Exception e) { c.reject("fail"); }
+              }).start();
+            }
+
+            @PluginMethod public void send(PluginCall c) {
+              PrintWriter p = w.get(c.getString("id"));
+              if (p != null) synchronized (p) { p.println(c.getString("msg")); p.flush(); }
+              c.resolve();
+            }
+          }
+          E
+          cat > $D/MainActivity.java <<'E'
+          package com.hasan.mench;
+          import android.os.Bundle;
+          import com.getcapacitor.BridgeActivity;
+          public class MainActivity extends BridgeActivity {
+            @Override public void onCreate(Bundle b) { registerPlugin(BtLink.class); super.onCreate(b); }
+          }
+          E
+          sed -i 's|<application|<uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/><uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/><uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/><uses-permission android:name="android.permission.BLUETOOTH_SCAN"/><uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/><uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/><uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/><application|' android/app/src/main/AndroidManifest.xml
+          npx cap sync android
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mench-apk
+          path: app/android/app/build/outputs/apk/debug/app-debug.apk
